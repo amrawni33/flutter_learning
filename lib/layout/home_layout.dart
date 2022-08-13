@@ -8,14 +8,7 @@ import 'package:startup_namer/shared/components/components.dart';
 import '../modules/new_tasks/new_tasks_screen.dart';
 import '../shared/components/constants.dart';
 
-class HomeLayout extends StatefulWidget {
-  const HomeLayout({Key? key}) : super(key: key);
-
-  @override
-  State<HomeLayout> createState() => _HomeLayoutState();
-}
-
-class _HomeLayoutState extends State<HomeLayout> {
+class HomeLayout extends StatelessWidget {
   int currentIndex = 0;
   List<Widget> screens = [
     NewTasks(),
@@ -36,11 +29,6 @@ class _HomeLayoutState extends State<HomeLayout> {
   var timeController = TextEditingController();
   var dateController = TextEditingController();
   @override
-  void initState() {
-    super.initState();
-    createDatabase();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,12 +50,12 @@ class _HomeLayoutState extends State<HomeLayout> {
                   .then((value) {
                 getDataFromDatabase(database).then((value) {
                   Navigator.pop(context);
-                  setState(() {
-                    isBottomSheetShown = false;
-                    fabIcon = Icons.edit;
-                    tasks = value;
-                    print(tasks);
-                  });
+                  // setState(() {
+                  //   isBottomSheetShown = false;
+                  //   fabIcon = Icons.edit;
+                  //   tasks = value;
+                  //   print(tasks);
+                  // });
                 });
               });
             }
@@ -152,14 +140,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                 .closed
                 .then((value) {
               isBottomSheetShown = false;
-              setState(() {
-                fabIcon = Icons.edit;
-              });
+              // setState(() {
+              //   fabIcon = Icons.edit;
+              // });
             });
             isBottomSheetShown = true;
-            setState(() {
-              fabIcon = Icons.add;
-            });
+            // setState(() {
+            //   fabIcon = Icons.add;
+            // });
           }
         },
       ),
@@ -169,9 +157,9 @@ class _HomeLayoutState extends State<HomeLayout> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
+          // setState(() {
+          //   currentIndex = index;
+          // });
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Tasks'),
@@ -192,10 +180,10 @@ class _HomeLayoutState extends State<HomeLayout> {
       print('database created');
     }, onOpen: (database) {
       getDataFromDatabase(database).then((value) {
-        setState(() {
-          tasks = value;
-          print(tasks);
-        });
+        // setState(() {
+        //   tasks = value;
+        //   print(tasks);
+        // });
       });
       print('database opened');
     });
