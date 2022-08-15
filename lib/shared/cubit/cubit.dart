@@ -12,7 +12,9 @@ class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(AppInitialState());
   static AppCubit get(context) => BlocProvider.of(context);
 
-  List<Map> tasks = [];
+  List<Map> newTasks = [];
+  List<Map> doneTasks = [];
+  List<Map> archivedTasks = [];
   Database? database;
   bool isBottomSheetShown = false;
   IconData? fabIcon = Icons.edit;
@@ -37,11 +39,7 @@ class AppCubit extends Cubit<AppStates> {
       database.execute(
           'CREATE TABLE Test (id INTEGER PRIMARY KEY, title TEXT, date TEXT, time TEXT , status TEXT)');
     }, onOpen: (database) {
-      getDataFromDatabase(database).then((value) {
-        tasks = value;
-        print(tasks);
-        emit(AppGetDB());
-      });
+      getDataFromDatabase(database);
     }).then((value) {
       database = value;
       emit(AppCreateDB());
@@ -53,18 +51,14 @@ class AppCubit extends Cubit<AppStates> {
     @required String? time,
     @required String? date,
   }) async {
-    await database!.transaction((txn) async{
+    await database!.transaction((txn) async {
       txn
           .rawInsert(
               'INSERT INTO Test(title, date,time, status) VALUES ("$title","$date","$time","new")')
           .then((value) {
         print('$value inserted successfully');
         emit(AppInsertDB());
-        getDataFromDatabase(database).then((value) {
-          tasks = value;
-          print(tasks);
-          emit(AppGetDB());
-        });
+        getDataFromDatabase(database);
       }).catchError((error) {
         print('Error when inserting new record ${error.toString()}');
       });
@@ -72,8 +66,39 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  Future<List<Map>> getDataFromDatabase(database) async {
-    return await database!.rawQuery('SELECT * FROM Test');
+  void getDataFromDatabase(database) async {
+    newTasks = [];
+    doneTasks = [];
+    archivedTasks = [];
+    emit(AppGetLoadingDB());
+    database!.rawQuery('SELECT * FROM Test').then((value) {
+      value.forEach((element) {
+        if (element['status'] == 'new') {
+          newTasks.add(element);
+        } else if (element['status'] == 'done') {
+          doneTasks.add(element);
+        } else if (element['status'] == 'archive') {
+          archivedTasks.add(element);
+        }
+      });
+      emit(AppGetDB());
+    });
+  }
+
+  void updateData({required String status, required int id}) async {
+    return await database!.rawUpdate('UPDATE Test SET status = ? WHERE id = ?',
+        [status, '$id']).then((value) {
+      getDataFromDatabase(database);
+      emit(AppUpdateDB());
+    });
+  }
+
+  void deleteData({required int id}) async {
+    return await database!
+        .rawUpdate('DELETE FROM Test WHERE id = ?', ['$id']).then((value) {
+      getDataFromDatabase(database);
+      emit(AppDeleteDB());
+    });
   }
 
   void changeBottomSheetState({

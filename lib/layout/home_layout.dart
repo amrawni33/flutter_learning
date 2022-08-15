@@ -24,7 +24,7 @@ class HomeLayout extends StatelessWidget {
       create: (BuildContext context) => AppCubit()..createDatabase(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
-          if(state is AppInsertDB){
+          if (state is AppInsertDB) {
             Navigator.pop(context);
           }
         },
@@ -42,7 +42,8 @@ class HomeLayout extends StatelessWidget {
               onPressed: () {
                 if (cubit.isBottomSheetShown) {
                   if ((formKey.currentState)!.validate()) {
-                    cubit.insertToDatabase(title: titleController.text,
+                    cubit.insertToDatabase(
+                        title: titleController.text,
                         time: timeController.text,
                         date: dateController.text);
                   }
@@ -134,7 +135,7 @@ class HomeLayout extends StatelessWidget {
                 }
               },
             ),
-            body: state is! AppGetDB
+            body: state is AppGetLoadingDB
                 ? const Center(child: CircularProgressIndicator())
                 : cubit.screens[cubit.currentIndex],
             bottomNavigationBar: BottomNavigationBar(
