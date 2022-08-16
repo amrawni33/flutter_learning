@@ -4,7 +4,7 @@ import 'package:startup_namer/modules/counter/counterscreen.dart';
 import 'package:startup_namer/modules/login/login_screen.dart';
 import 'package:startup_namer/shared/bloc_observer.dart';
 
-import 'layout/home_layout.dart';
+import 'layout/todo_app/todo_layout.dart';
 
 void main() {
   runApp(const MyApp());

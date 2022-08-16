@@ -8,8 +8,8 @@ import 'package:startup_namer/shared/components/components.dart';
 import 'package:startup_namer/shared/cubit/cubit.dart';
 import 'package:startup_namer/shared/cubit/states.dart';
 
-import '../modules/new_tasks/new_tasks_screen.dart';
-import '../shared/components/constants.dart';
+import '../../modules/new_tasks/new_tasks_screen.dart';
+import '../../shared/components/constants.dart';
 
 class HomeLayout extends StatelessWidget {
   var scaffoldKey = GlobalKey<ScaffoldState>();
