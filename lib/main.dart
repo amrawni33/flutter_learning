@@ -27,8 +27,22 @@ class MyApp extends StatelessWidget {
           backwardsCompatibility: false,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.white,
-            statusBarIconBrightness: Brightness.dark
+            statusBarIconBrightness: Brightness.dark,
+          ),
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.black,
+            size: 30.0,
           )
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.deepOrange,
+          elevation: 20.0,
         ),
       ),
       debugShowCheckedModeBanner: false,
