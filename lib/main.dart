@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:startup_namer/modules/counter/counterscreen.dart';
 import 'package:startup_namer/modules/login/login_screen.dart';
 import 'package:startup_namer/shared/bloc_observer.dart';
+import 'package:startup_namer/shared/network/remote/dio_helper.dart';
 
 import 'layout/news_app/news_layout.dart';
 import 'layout/todo_app/todo_layout.dart';
@@ -11,6 +12,7 @@ import 'layout/todo_app/todo_layout.dart';
 void main() {
   runApp(const MyApp());
   Bloc.observer = MyBlocObserver();
+  DioHelper.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -43,6 +45,9 @@ class MyApp extends StatelessWidget {
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.deepOrange,
           elevation: 20.0,
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.deepOrange,
         ),
       ),
       debugShowCheckedModeBanner: false,
