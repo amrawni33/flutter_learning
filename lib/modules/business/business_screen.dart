@@ -1,47 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:startup_namer/layout/news_app/cubit/cubit.dart';
+import 'package:startup_namer/layout/news_app/cubit/states.dart';
+import 'package:startup_namer/shared/components/components.dart';
 
 class BusinessScreen extends StatelessWidget {
   const BusinessScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 120.0,
-          height: 120.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            image: DecorationImage(
-              image: NetworkImage('https://mediaaws.almasryalyoum.com/news/large/2022/06/18/1829527_0.jpg',),
-              fit: BoxFit.cover,
-            )
-          ),
-        ),
-        const SizedBox(
-          width: 20.0,
-        ),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              'Title',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Text(
-              '2022-08-16T13:21:26Z',
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            )
-          ],
-        ),
-      ],
-    );
+    return BlocConsumer<NewsCubit, NewsStates>(
+        builder: (context, state) {
+          var list = NewsCubit.get(context).business;
+          return list.length < 0
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.separated(
+                  itemBuilder: (context, index) =>
+                      buildArticleItem(list[index]),
+                  separatorBuilder: (context, index) => myDivider(),
+                  itemCount: list.length,
+                  physics: const BouncingScrollPhysics(),
+                );
+        },
+        listener: (context, state) {});
   }
 }

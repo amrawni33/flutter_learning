@@ -120,3 +120,67 @@ Widget buildTaskItem(Map model, context) => Dismissible(
         AppCubit.get(context).deleteData(id: model['id']);
       },
     );
+
+///****************************************************************************/
+
+Widget buildArticleItem(article) => Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Row(
+        children: [
+          Container(
+            width: 120.0,
+            height: 120.0,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    '${article['urlToImage']}',
+                  ),
+                  fit: BoxFit.cover,
+                )),
+          ),
+          const SizedBox(
+            width: 20.0,
+          ),
+          Expanded(
+            child: Container(
+              height: 120.0,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      '${article['title']}',
+                      style: const TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Text(
+                    '${article['publishedAt']}',
+                    style: const TextStyle(
+                      color: Colors.grey,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+///****************************************************************************/
+
+Widget myDivider() => Padding(
+      padding: const EdgeInsetsDirectional.only(start: 20.0),
+      child: Container(
+        height: 1.0,
+        color: Colors.grey[300],
+      ),
+    );
