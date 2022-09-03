@@ -24,6 +24,10 @@ class NewsLayout extends StatelessWidget {
                 IconButton(
                     onPressed: (){},
                     icon:Icon(Icons.search),
+                ),
+                IconButton(
+                  onPressed: (){},
+                  icon:Icon(Icons.brightness_4_sharp),
                 )
               ],
             ),
