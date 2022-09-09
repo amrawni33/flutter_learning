@@ -10,7 +10,7 @@ class BusinessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NewsCubit, NewsStates>(
-        builder: (context, state) {
+        builder: (context, state ) {
           var list = NewsCubit.get(context).business;
           return list.length < 0
               ? const Center(
@@ -18,7 +18,7 @@ class BusinessScreen extends StatelessWidget {
                 )
               : ListView.separated(
                   itemBuilder: (context, index) =>
-                      buildArticleItem(list[index]),
+                      buildArticleItem(list[index],context),
                   separatorBuilder: (context, index) => myDivider(),
                   itemCount: list.length,
                   physics: const BouncingScrollPhysics(),

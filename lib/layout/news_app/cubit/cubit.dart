@@ -42,6 +42,12 @@ class NewsCubit extends Cubit<NewsStates> {
     currentIndex = index;
     emit(NewsBottomNavState());
   }
+  bool isDark = true;
+
+  void changeAppMode(){
+    isDark =! isDark;
+    emit(AppChangeModeState());
+  }
 
   List<dynamic> business = [];
   void getBusiness() {

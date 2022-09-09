@@ -123,7 +123,7 @@ Widget buildTaskItem(Map model, context) => Dismissible(
 
 ///****************************************************************************/
 
-Widget buildArticleItem(article) => Padding(
+Widget buildArticleItem(article, context) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
@@ -153,10 +153,7 @@ Widget buildArticleItem(article) => Padding(
                   Expanded(
                     child: Text(
                       '${article['title']}',
-                      style: const TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1,
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                     ),
