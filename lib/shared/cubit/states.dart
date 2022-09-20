@@ -17,3 +17,5 @@ class AppGetLoadingDB extends AppStates {}
 class AppInsertDB extends AppStates {}
 
 class ChangeBottomSheetState extends AppStates {}
+
+class AppChangeModeState extends AppStates{}

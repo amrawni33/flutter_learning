@@ -109,4 +109,11 @@ class AppCubit extends Cubit<AppStates> {
     fabIcon = icon;
     emit(ChangeBottomSheetState());
   }
+
+  bool isDark = true;
+
+  void changeAppMode(){
+    isDark =! isDark;
+    emit(AppChangeModeState());
+  }
 }

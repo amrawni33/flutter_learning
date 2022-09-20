@@ -3,14 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:startup_namer/layout/news_app/cubit/cubit.dart';
 import 'package:startup_namer/layout/news_app/cubit/states.dart';
 import 'package:startup_namer/shared/components/components.dart';
+import 'package:startup_namer/shared/cubit/cubit.dart';
+import 'package:startup_namer/shared/cubit/states.dart';
 
 class BusinessScreen extends StatelessWidget {
   const BusinessScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NewsCubit, NewsStates>(
-        builder: (context, state ) {
+    return BlocConsumer<AppCubit, AppStates>(
+        builder: (context, state) {
           var list = NewsCubit.get(context).business;
           return list.length < 0
               ? const Center(
@@ -18,7 +20,7 @@ class BusinessScreen extends StatelessWidget {
                 )
               : ListView.separated(
                   itemBuilder: (context, index) =>
-                      buildArticleItem(list[index],context),
+                      buildArticleItem(list[index], context),
                   separatorBuilder: (context, index) => myDivider(),
                   itemCount: list.length,
                   physics: const BouncingScrollPhysics(),

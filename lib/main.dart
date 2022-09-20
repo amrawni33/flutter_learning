@@ -26,10 +26,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => NewsCubit(),
-      child: BlocConsumer<NewsCubit, NewsStates>(
+      create: (BuildContext context) => AppCubit(),
+      child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
+          bool theme =AppCubit.get(context).isDark;
           return MaterialApp(
             theme: ThemeData(
               primarySwatch: Colors.deepOrange,
@@ -37,7 +38,6 @@ class MyApp extends StatelessWidget {
               appBarTheme: const AppBarTheme(
                   backgroundColor: Colors.white,
                   elevation: 0.0,
-                  backwardsCompatibility: false,
                   systemOverlayStyle: SystemUiOverlayStyle(
                     statusBarColor: Colors.white,
                     statusBarIconBrightness: Brightness.dark,
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
                 bodyText1: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -75,7 +75,6 @@ class MyApp extends StatelessWidget {
               appBarTheme: AppBarTheme(
                   backgroundColor: color,
                   elevation: 0.0,
-                  backwardsCompatibility: false,
                   systemOverlayStyle: SystemUiOverlayStyle(
                     statusBarColor: color,
                     statusBarIconBrightness: Brightness.light,
@@ -103,11 +102,11 @@ class MyApp extends StatelessWidget {
                 bodyText1: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             ),
-            themeMode: NewsCubit.get(context).isDark
+            themeMode: theme
                 ? ThemeMode.dark
                 : ThemeMode.light,
             debugShowCheckedModeBanner: false,
